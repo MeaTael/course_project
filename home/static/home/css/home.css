@@ -1,0 +1,75 @@
+body {
+    background-color: bisque;
+}
+
+aside {
+    float: left;
+    background: #2b003d;
+    width: 10%;
+    height: 100vh;
+    color: #f2f2f2;
+    text-align: center;
+    overflow: hidden;
+    border-right: 5px solid black;
+}
+
+.header {
+    font-size: 21px;
+    background-color: #2b003d;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 5px solid #4f0070;
+    margin-bottom: 10px;
+}
+
+.menu a {
+    display: inline-block;
+    color: #f2f2f2;
+    background-color: #2b003d;
+    text-align: left;
+    font-size: 17px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    width: 90%;
+    height: 10%;
+    transition: all .6s ease;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.topnav {
+    background-color: darkorange;
+    overflow: hidden;
+    border-bottom: 5px solid orangered;
+}
+
+.topnav a {
+    float: right;
+    color: #2b003d;
+    text-align: center;
+    padding: 11px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    transition: all .6s ease;
+}
+
+.topnav a:hover {
+    background-color: #2b003d;
+    color: #ddd;
+    transform: scale(1.05);
+}
+
+.topnav a:active, .menu a:active {
+    background-color: bisque;
+    color: #2b003d;
+}
+
+.menu a.active {
+    background-color: bisque;
+    color: #2b003d;
+}
+
+.menu a.active:hover, .menu a:hover {
+    background-color: darkorange;
+    color: #2b003d;
+}
