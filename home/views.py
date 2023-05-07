@@ -15,7 +15,3 @@ def repeat(request):
 
 def compete(request):
     return render(request, 'home/competePage.html')
-
-
-def profile(request):
-    return render(request, 'home/profilePage.html')

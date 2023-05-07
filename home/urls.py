@@ -6,5 +6,4 @@ urlpatterns = [
     path('learn/', views.learn, name="learn"),
     path('repeat/', views.repeat, name="repeat"),
     path('compete/', views.compete, name="compete"),
-    path('profile/', views.profile, name="profile")
 ]
