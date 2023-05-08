@@ -1,5 +1,6 @@
 {% extends "home/layout.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block signupclass %}
     active
@@ -15,18 +16,7 @@
                     Регистрация
                 </h1>
                 <fieldset class="form-fields">
-                    <div class="form-field">
-                        {{ form.username }}
-                    </div>
-
-                    <div class="form-field">
-                        {{ form.password1 }}
-                    </div>
-
-                    <div class="form-field">
-                        {{ form.password2 }}
-                    </div>
-
+                    {{ form|crispy }}
                 </fieldset>
                 <div class="form-buttons">
                     <button class="button" type="submit">Зарегистрироваться</button>
