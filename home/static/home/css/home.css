@@ -15,6 +15,7 @@ aside {
 
 .header {
     font-size: 21px;
+    font-weight: bold;
     background-color: #2b003d;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -53,9 +54,9 @@ aside {
     transition: all .6s ease;
 }
 
-.topnav a:hover {
+.topnav a:hover, .topnav a.active {
     background-color: #2b003d;
-    color: #ddd;
+    color: #f2f2f2;
     transform: scale(1.05);
 }
 
@@ -72,4 +73,5 @@ aside {
 .menu a.active:hover, .menu a:hover {
     background-color: darkorange;
     color: #2b003d;
+    transform: scale(1.05);
 }

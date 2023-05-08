@@ -1,21 +1,37 @@
 {% extends "home/layout.html" %}
-{% load crispy_forms_tags %}
+{% load static %}
+
+{% block loginclass %}
+    active
+{% endblock loginclass %}
+
 {% block content %}
     <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Вход</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Войти</button>
-            </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Нужен аккаунт? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
-            </small>
+        <link rel=stylesheet href="{% static 'home/css/auth.css' %}">
+        <div class="form-container-login">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="form-title">
+                    Авторизация
+                </h1>
+                <fieldset class="form-fields">
+                    <div class="form-field">
+                        {{ form.username }}
+                    </div>
+
+                    <div class="form-field">
+                        {{ form.password }}
+                    </div>
+
+                </fieldset>
+                <div class="form-buttons">
+                    <button class="button" type="submit">Войти</button>
+                </div>
+            </form>
+            <form class="form-buttons" action="{% url 'signup' %}">
+                <div class="divider">Уже зарегистрированы?</div>
+                <button class="button">Зарегистрироваться</button>
+            </form>
         </div>
     </div>
 {% endblock content %}
