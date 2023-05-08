@@ -41,6 +41,16 @@ class UserRegisterForm(UserCreationForm):
         for field in self.fields:
             self.fields[field].label = False
 
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Email',
+        'style': 'border: 3px solid orangered;'
+                 'border-radius: 10px;'
+                 'font-size: 14px;'
+                 'line-height: 16px;'
+                 'padding-left: 10px;'
+    }))
+
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Пароль',
@@ -60,7 +70,6 @@ class UserRegisterForm(UserCreationForm):
                  'line-height: 16px;'
                  'padding-left: 10px;'
     }))
-
 
     class Meta:
         model = User
