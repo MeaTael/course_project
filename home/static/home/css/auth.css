@@ -12,6 +12,19 @@ input:focus {
     outline: none;
 }
 
+.content-section {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    height: 95%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
 .form-title {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -23,19 +36,16 @@ input:focus {
 }
 
 .form-container-login {
-    display: inline-block;
-    transform:translate(150%, 75%);
     width: 20%;
     background: #2b003d;
     border-radius: 20px;
     padding-left: 30px;
     padding-right: 30px;
     border: 5px solid orangered;
+    transition: .6s ease;
 }
 
 .form-container-signup {
-    display: inline-block;
-    transform:translate(150%, 57.5%);
     width: 20%;
     background: #2b003d;
     border-radius: 20px;
@@ -57,7 +67,13 @@ input:focus {
     line-height: 16px;
     border: 3px solid orangered;
     border-radius: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.button:hover {
+    background: orangered;
+    border: 3px solid #f2f2f2;
+    transition: 0.6s ease;
 }
 
 .divider {
