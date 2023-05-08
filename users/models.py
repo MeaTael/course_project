@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import django.contrib.postgres.fields as postgres_fields
 from PIL import Image
 
 
@@ -7,6 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
     learning_level = models.FloatField(default=1)
+    learned_words = postgres_fields.HStoreField(blank=True, default={})
     fields = '__all__'
 
     def __str__(self):
