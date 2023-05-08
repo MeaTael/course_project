@@ -13,7 +13,8 @@ def add_words(apps, schema_editor):
     words = open(os.path.join(BASE_DIR, '5000_words.txt'))
     for word in words.readlines():
         eng, rus = word.split(";")
-        rus_eng_dict.objects.create(rus=rus.strip("\""), eng=eng.strip("\""))
+        for wordru in rus.strip("\"")[:-2].split(","):
+            rus_eng_dict.objects.create(rus=wordru.strip(), eng=eng.strip("\""))
 
 
 class Migration(migrations.Migration):
