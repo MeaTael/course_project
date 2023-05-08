@@ -15,11 +15,3 @@ def repeat(request):
 
 def compete(request):
     return render(request, 'home/competePage.html')
-
-
-def login(request):
-    return render(request, 'home/loginPage.html')
-
-
-def signup(request):
-    return render(request, 'home/signupPage.html')
