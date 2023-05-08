@@ -1,5 +1,6 @@
 {% extends "home/layout.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block loginclass %}
     active
@@ -15,14 +16,7 @@
                     Авторизация
                 </h1>
                 <fieldset class="form-fields">
-                    <div class="form-field">
-                        {{ form.username }}
-                    </div>
-
-                    <div class="form-field">
-                        {{ form.password }}
-                    </div>
-
+                    {{ form|crispy }}
                 </fieldset>
                 <div class="form-buttons">
                     <button class="button" type="submit">Войти</button>

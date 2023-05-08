@@ -19,7 +19,8 @@ class UserLoginForm(AuthenticationForm):
                      'font-size: 14px;'
                      'line-height: 16px;'
                      'padding-left: 10px;'
-        }))
+        }),
+        label=False)
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
@@ -29,15 +30,13 @@ class UserLoginForm(AuthenticationForm):
                      'font-size: 14px;'
                      'line-height: 16px;'
                      'padding-left: 10px;'
-        }))
+        }),
+        label=False)
 
 
 class UserRegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
-
-        # for fieldname in ['username', 'password1', 'password2']:
-        #     self.fields[fieldname].help_text = None
         for field in self.fields:
             self.fields[field].label = False
 
