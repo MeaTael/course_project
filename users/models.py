@@ -7,6 +7,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
     learning_level = models.FloatField(default=1.0)
+    rating = models.DecimalField(default=0, max_digits=15, decimal_places=6)
     learned_words = models.JSONField(blank=True, default="{}")
 
     def __str__(self):

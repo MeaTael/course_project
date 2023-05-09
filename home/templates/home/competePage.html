@@ -9,5 +9,23 @@
 {% endblock %}
 
 {% block content %}
-    <p>Рейтинг</p>
+    <p>Рейтинг обновляется каждые 20 минут</p>
+    <table class="table">
+      <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Rating</th>
+    </tr>
+  </thead>
+    <tbody>
+        {% for message in messages_list %}
+            <tr>
+            <td>{{ message.i }}</td>
+            <td>{{ message.username }}</td>
+            <td>{{ message.rating }}</td>
+            </tr>
+    {% endfor %}
+    </tbody>
+    </table>
 {% endblock %}

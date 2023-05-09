@@ -9,6 +9,8 @@ from users.forms import LearningWords
 
 from django.contrib import messages
 
+from users.models import Profile
+
 
 def home(request):
     return render(request, 'home/mainPage.html')
@@ -42,4 +44,10 @@ def repeat(request):
 
 
 def compete(request):
-    return render(request, 'home/competePage.html')
+    profiles = Profile.objects.all().order_by('-rating')[:10]
+    messages_list = []
+    i = 1
+    for profile in profiles:
+        messages_list.append({'username': profile.user.username, 'rating': profile.rating, 'i': i})
+        i += 1
+    return render(request, 'home/competePage.html', {'messages_list': messages_list})

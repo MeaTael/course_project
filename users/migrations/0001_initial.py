@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('image', models.ImageField(default='default.jpeg', upload_to='profile_pics')),
                 ('learning_level', models.FloatField(default=1)),
+                ('rating', models.DecimalField(default=0, max_digits=15, decimal_places=6)),
                 ('learned_words', models.JSONField(blank=True, default="{}")),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
