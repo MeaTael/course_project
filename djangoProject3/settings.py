@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from key import key
 from key import *
 import os
@@ -13,6 +14,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
+    'django_crontab',
     'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap5',
@@ -22,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -111,3 +114,8 @@ LOGIN_URL = 'login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
+
+
+CRONJOBS = [
+    ('*/1 * * * *', 'django.core.management.call_command', ['update_stat']),
+]
