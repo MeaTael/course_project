@@ -94,3 +94,15 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
 
         fields = ['image']
+
+
+class LearningWords(forms.Form):
+    word = forms.CharField()
+    word_to_check = ""
+    error_message = ""
+
+    def set_word_to_check(self, word_to_check):
+        self.word_to_check = word_to_check
+
+    def set_error_message(self, message):
+        self.error_message = message
