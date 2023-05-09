@@ -1,7 +1,9 @@
 {% extends 'home/layout.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-    Повторяем слова
+    Учим слова
 {% endblock %}
 
 {% block repeatclass %}
@@ -9,5 +11,30 @@
 {% endblock %}
 
 {% block content %}
-    <p>Повторяем слова</p>
+    <div class="content-section">
+        <link rel="stylesheet" href="{% static 'home/css/learn-repeat.css' %}">
+        <div class="form-container-repeat">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-title">
+                    <div class="form-title-head">
+                        <h1>Текущее слово:&nbsp</h1>
+                        <h1 class="word">{{ message }}</h1>
+                    </div>
+                    <h1 class="task">Введите его на английском:</h1>
+                </div>
+                <fieldset class="form-fields">
+                    {{ form|crispy }}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </fieldset>
+                <div class="form-buttons">
+                    <button class="button" type="submit">Ответить</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -97,7 +97,22 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class LearningWords(forms.Form):
-    word = forms.CharField()
+    def __init__(self, *args, **kwargs):
+        super(LearningWords, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].label = False
+
+    word = forms.CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Введите перевод слова',
+        'style': 'border: 3px solid orangered;'
+                 'border-radius: 10px;'
+                 'font-size: 20px;'
+                 'line-height: 25px;'
+                 'width: 70%;'
+                 'margin-left: 15%;'
+    }))
+
     word_to_check = ""
     error_message = ""
 
