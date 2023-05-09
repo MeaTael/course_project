@@ -12,15 +12,28 @@
 
 {% block content %}
     <div class="content-section">
-
-        <div class="form-container-signup">
+        <link rel="stylesheet" href="{% static 'home/css/learn-repeat.css' %}">
+        <div class="form-container-repeat">
             <form method="POST">
                 {% csrf_token %}
-                <h1 class="form-title">
-                    {{ message }}
-                </h1>
+                <div class="form-title">
+                    <div class="form-title-head">
+                        <h1>Текущее слово:&nbsp</h1>
+                        <h1 class="word">{{ ru }}</h1>
+                    </div>
+                    <div class="form-title-head">
+                        <h1>Его перевод:&nbsp</h1>
+                        <h1 class="word">{{ eng }}</h1>
+                    </div>
+                    <h1 class="task">Введите его на английском:</h1>
+                </div>
                 <fieldset class="form-fields">
                     {{ form|crispy }}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </fieldset>
                 <div class="form-buttons">
                     <button class="button" type="submit">Ответить</button>
@@ -28,11 +41,4 @@
             </form>
         </div>
     </div>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
 {% endblock %}
