@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -19,28 +19,52 @@ def home(request):
 def learn(request):
     words = json.loads(request.user.profile.learned_words)
     word_to_check = EngRusDict.objects.exclude(eng__in=words.keys())[0]
-    message = f'Текущее слово: {word_to_check.rus}, оно переводится как {word_to_check.eng}, введите это слово на английском в форме ниже'
+    ru = word_to_check.rus
+    eng = word_to_check.eng
     if request.method == 'POST':
         form = LearningWords(request.POST)
-        if form.is_valid() and form.cleaned_data.get('word') == word_to_check.eng:
-            messages.success(request, 'Отлично, все верно, теперь Вы знаете на 1 слово больше')
-            words[word_to_check.eng] = {"forgeting_coef": 1.0, "last_repeating": datetime.now().strftime('%d.%m.%Y %H:%M'), 'repeating': 1}
+        if form.is_valid() and form.cleaned_data.get('word') == eng:
+            messages.success(request, 'Отлично, теперь Вы знаете на 1 слово больше!')
+            words[eng] = {"translate": ru, "forgeting_coef": 1.0, "last_repeating": datetime.now().strftime('%d.%m.%Y %H:%M'), "repeating": 1}
             request.user.profile.learned_words = json.dumps(words)
             request.user.profile.save()
-            response = HttpResponse(status=302)
-            response['Location'] = '/learn'
-            return response
+            return redirect('learn')
         else:
-            messages.success(request, 'Внимательно посмотрите, как именно пишется данное слово на английском')
+            messages.error(request, 'Неверно, попробуйте еще раз!')
             return redirect('learn')
     else:
         form = LearningWords()
         form.set_word_to_check(word_to_check)
-    return render(request, 'home/learnPage.html', {'message': message, 'form': form})
+    return render(request, 'home/learnPage.html', {'ru': ru, 'eng': eng, 'form': form})
 
 
 def repeat(request):
-    return render(request, 'home/repeatPage.html')
+    words = json.loads(request.user.profile.learned_words)
+    word_to_check = sorted(words.keys(), key=lambda x: -words[x]['forgeting_coef'])[0]
+    message = words[word_to_check]["translate"]
+    if request.method == 'POST':
+        form = LearningWords(request.POST)
+        if form.is_valid():
+            if form.cleaned_data.get('word') == word_to_check:
+                request.user.profile.learning_level *= 0.9
+                words[word_to_check]['repeating'] += 1
+                messages.success(request, "Верный ответ!")
+            else:
+                request.user.profile.learning_level /= 0.9
+                words[word_to_check]['repeating'] = 1
+                messages.error(request, f'Вы ошиблись! Правильный ответ: {word_to_check}.')
+            timepassed = datetime.now() - datetime.strptime(words[word_to_check]['last_repeating'], '%d.%m.%Y %H:%M')
+            words[word_to_check]['forgeting_coef'] = (1 + 2 ** words[word_to_check]['repeating'] *
+                                                      request.user.profile.learning_level * timepassed.total_seconds() /
+                                                      timedelta(hours=1).total_seconds()) ** (-1 / (2 ** words[word_to_check]['repeating']))
+            words[word_to_check]['last_repeating'] = datetime.now().strftime('%d.%m.%Y %H:%M')
+            request.user.profile.learned_words = json.dumps(words)
+            request.user.profile.save()
+            return redirect('repeat')
+    else:
+        form = LearningWords()
+        form.set_word_to_check(word_to_check)
+    return render(request, 'home/repeatPage.html', {'message': message, 'form': form})
 
 
 def compete(request):

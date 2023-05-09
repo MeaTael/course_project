@@ -17,16 +17,18 @@
         <div class="header">Меню</div>
         <div class="menu">
             <a href="{% url 'home' %}" class="{% block homeclass %}{% endblock %}">Главная</a>
+            {% if user.is_authenticated %}
             <a href="{% url 'learn' %}" class="{% block learnclass %}{% endblock %}">Изучение слов</a>
             <a href="{% url 'repeat' %}" class="{% block repeatclass %}{% endblock %}">Повторение слов</a>
+            {% endif %}
             <a href="{% url 'compete' %}" class="{% block competeclass %}{% endblock %}">Рейтинг</a>
         </div>
     </aside>
 
     <div class="topnav">
         {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
-            <a class="nav-item nav-link" href="{% url 'logout' %}">Выход</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
         {% else %}
             <a href="{% url 'login' %}" class="{% block loginclass %}{% endblock %}">Log in</a>
             <a href="{% url 'signup' %}" class="{% block signupclass %}{% endblock %}">Sign up</a>
