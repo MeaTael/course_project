@@ -1,0 +1,24 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Необходимо выучить слова!
+{% endblock %}
+
+{% block repeatclass %}
+    active
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-section">
+        <link rel="stylesheet" href="{% static 'home/css/learn-repeat.css' %}">
+        <div class="form-container-repeat">
+            <h2 class="repeat-fail-header">Чтобы повторять слова,<br>сперва нужно их выучить!</h2>
+            <form class="form-buttons" action="{% url 'learn' %}">
+                <button class="button-learn">Начать учить слова</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
