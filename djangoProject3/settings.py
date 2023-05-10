@@ -119,4 +119,14 @@ MEDIA_URL = 'media/'
 
 CRONJOBS = [
     ('*/1 * * * *', 'django.core.management.call_command', ['update_stat']),
+    ('* */1 * * *', 'django.core.management.call_command', ['send_mails']),
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'englearncp@mail.ru'
+EMAIL_HOST_PASSWORD = mail_password
