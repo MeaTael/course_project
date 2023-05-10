@@ -42,7 +42,7 @@ def repeat(request):
     words = json.loads(request.user.profile.learned_words)
     if len(words) == 0:
         return render(request, 'home/nothingToRepeatPage.html')
-    word_to_check = sorted(words.keys(), key=lambda x: -words[x]['forgeting_coef'])[0]
+    word_to_check = sorted(words.keys(), key=lambda x: words[x]['forgeting_coef'])[0]
     message = words[word_to_check]["translate"]
     if request.method == 'POST':
         form = LearningWords(request.POST)
