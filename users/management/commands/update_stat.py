@@ -12,9 +12,12 @@ class Command(BaseCommand):
         profiles = Profile.objects.all()
         now = datetime.now()
         for profile in profiles:
+            rating = 0
             words = json.loads(profile.learned_words)
             for word in words:
                 timepassed = now - datetime.strptime(words[word]['last_repeating'], '%d.%m.%Y %H:%M')
                 words[word]['forgeting_coef'] = (1 + 2**words[word]['repeating'] * profile.learning_level * timepassed.total_seconds()/timedelta(hours=1).total_seconds())**(-1/(2**words[word]['repeating']))
+                rating += words[word]['forgeting_coef'] * 10
             profile.learned_words = json.dumps(words)
+            profile.rating = rating
             profile.save()
