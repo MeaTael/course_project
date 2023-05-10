@@ -82,14 +82,43 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+
+    username = UsernameField(widget=forms.TextInput(
+        attrs={
+            'style': 'border: 3px solid orangered;'
+                     'border-radius: 10px;'
+                     'font-size: 14px;'
+                     'line-height: 16px;'
+                     'padding-left: 10px;'
+        }),
+        label=False)
+
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={
+            'style': 'border: 3px solid orangered;'
+                     'border-radius: 10px;'
+                     'font-size: 14px;'
+                     'line-height: 16px;'
+                     'padding-left: 10px;'
+        }
+    ), label=False)
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ["username", "email"]
 
 
 class ProfileUpdateForm(forms.ModelForm):
+
+    image = forms.FileField(widget=forms.FileInput(
+        attrs={
+            'style': 'border: 3px solid orangered;'
+                     'border-radius: 10px;'
+                     'font-size: 14px;'
+                     'line-height: 16px;'
+                     'padding-left: 10px;'
+            }), label=False)
+
     class Meta:
         model = Profile
 
