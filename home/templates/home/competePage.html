@@ -1,4 +1,5 @@
 {% extends 'home/layout.html'%}
+{% load static %}
 
 {% block title %}
     Рейтинг
@@ -9,23 +10,29 @@
 {% endblock %}
 
 {% block content %}
-    <p>Рейтинг обновляется каждые 20 минут</p>
-    <table class="table">
-      <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Username</th>
-        <th scope="col">Rating</th>
-    </tr>
-  </thead>
-    <tbody>
-        {% for message in messages_list %}
+    <div class="content-section">
+        <link rel="stylesheet" href="{% static 'home/css/standings.css' %}">
+        <div class="table-container">
+            <h1>Standings</h1>
+            <table class="table">
+              <thead>
             <tr>
-            <td>{{ message.i }}</td>
-            <td>{{ message.username }}</td>
-            <td>{{ message.rating }}</td>
+                <th class="col" scope="col">Position</th>
+                <th class="col" scope="col">Username</th>
+                <th class="col" scope="col">&nbspRating&nbsp</th>
             </tr>
-    {% endfor %}
-    </tbody>
-    </table>
+          </thead>
+            <tbody>
+                {% for message in messages_list %}
+                    <tr>
+                    <td class="pos">{{ message.i }}</td>
+                    <td class="col-content">{{ message.username }}</td>
+                    <td class="col-content">{{ message.rating }}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+            <p>Рейтинг обновляется каждые 20 минут</p>
+        </div>
+    </div>
 {% endblock %}

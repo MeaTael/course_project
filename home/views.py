@@ -75,6 +75,6 @@ def compete(request):
     messages_list = []
     i = 1
     for profile in profiles:
-        messages_list.append({'username': profile.user.username, 'rating': profile.rating, 'i': i})
+        messages_list.append({'username': profile.user.username, 'rating': round(profile.rating, 2), 'i': i})
         i += 1
     return render(request, 'home/competePage.html', {'messages_list': messages_list})
