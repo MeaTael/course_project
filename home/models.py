@@ -7,5 +7,5 @@ class EngRusDict(models.Model):
     complexity = models.FloatField(default=1)
 
     def __str__(self):
-        return self.rus + " : " + self.eng
+        return self.rus + "-" + self.eng
 

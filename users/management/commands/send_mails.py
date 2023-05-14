@@ -1,11 +1,7 @@
-from datetime import datetime, timedelta
-
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 
-from users.models import Profile
-
-import json
+from users.models import Profile, LearnedWords
 
 
 class Command(BaseCommand):
@@ -13,14 +9,14 @@ class Command(BaseCommand):
         profiles = Profile.objects.all()
         mails = []
         for profile in profiles:
-            words = json.loads(profile.learned_words)
+            words = LearnedWords.objects.all()
             words_to_repeat = 0
             for word in words:
-                if words[word]['forgeting_coef'] < 0.8:
+                if word.forgetting_coef < 0.8:
                     words_to_repeat += 1
+                word.save()
             if words_to_repeat >= 5:
                 mails.append(profile.user.email)
-            profile.learned_words = json.dumps(words)
             profile.save()
         send_mail(
             "Вам необходимо повторить выученные слова",
