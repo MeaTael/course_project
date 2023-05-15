@@ -73,23 +73,35 @@ def repeat(request):
     learned_word = LearnedWords.objects.filter(pk=int(request.user.profile.repeating_word)).first()
     curr_word = learned_word.word
     if not request.user.profile.mode:
-        from_, to_ = curr_word.rus, curr_word.eng
+        learned_words = LearnedWords.objects.filter(user_id=request.user.id, word__rus=curr_word.rus).order_by('forgetting_coef')
+        from_, to_ = curr_word.rus, dict()
+        for word in learned_words:
+            to_[word.word.eng] = word.pk
     else:
-        from_, to_ = curr_word.eng, curr_word.rus
+        learned_words = LearnedWords.objects.filter(user_id=request.user.id, word__eng=curr_word.eng).order_by(
+            'forgetting_coef')
+        from_, to_ = curr_word.eng, dict()
+        for word in learned_words:
+            to_[word.word.rus] = word.pk
     message = from_
     if request.method == 'POST':
         form = LearningWords(request.POST)
         if form.is_valid():
-            if form.cleaned_data.get('word') == to_:
-                request.user.profile.learning_level *= 0.9
-                learned_word.repeating += 1
-                messages.success(request, "Верный ответ!")
-            else:
-                request.user.profile.learning_level /= 0.9
-                learned_word.repeating = 1
-                messages.error(request, f'Вы ошиблись! Правильный ответ: {to_}.')
+            for word in form.cleaned_data.get('word').split(","):
+                if word in to_.keys():
+                    learned_word = LearnedWords.objects.get(pk=to_[word])
+                    request.user.profile.learning_level *= 0.9
+                    learned_word.repeating += 1
+                    to_.pop(word)
+                    messages.success(request, "Верный ответ!")
+                else:
+                    request.user.profile.learning_level /= 0.9
+                learned_word.last_repeating = datetime.now(timezone.utc)
             request.user.profile.repeating_word = ""
-            learned_word.last_repeating = datetime.now(timezone.utc)
+            for word, pk in to_.items():
+                learned_word = LearnedWords.objects.get(pk=pk)
+                learned_word.repeating = 1
+                messages.error(request, f'Вы ошиблись! Правильный ответ: {word}.')
             learned_word.save()
             call_command('update_stat')
             request.user.profile.save()
