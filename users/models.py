@@ -10,6 +10,8 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
     learning_level = models.FloatField(default=1.0)
     rating = models.DecimalField(default=0, max_digits=15, decimal_places=6)
+    learning_word = models.CharField(default="")
+    repeating_word = models.CharField(default="")
 
     def __str__(self):
         return f'{self.user.username} Profile'

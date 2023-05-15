@@ -21,3 +21,4 @@ class Command(BaseCommand):
                 word.save()
             profile.rating = rating
             profile.save()
+        self.stdout.write(self.style.SUCCESS("Updated repeating coefs"))
