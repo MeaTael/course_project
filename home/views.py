@@ -26,16 +26,28 @@ def AddWord(user_id, word_id):
 
 
 @login_required
+def switch(request):
+    request.user.profile.mode = (request.user.profile.mode + 1) % 2
+    request.user.profile.save()
+    referer = request.META.get("HTTP_REFERER").split('/')[-2]
+    return redirect(referer)
+
+
+@login_required
 def learn(request):
+    print(request.META.get("HTTP_REFERER").split('/')[-2])
     if request.user.profile.learning_word == "":
         words_ids = LearnedWords.objects.filter(user_id=request.user.id).values_list('word_id')
         word_to_learn = EngRusDict.objects.exclude(id__in=words_ids)[0]
         request.user.profile.learning_word = str(word_to_learn.id) + "," + word_to_learn.rus + "," + word_to_learn.eng
         request.user.profile.save()
-    word_id, ru, eng = request.user.profile.learning_word.split(",")
+    if not request.user.profile.mode:
+        word_id, from_, to_ = request.user.profile.learning_word.split(",")
+    else:
+        word_id, to_, from_ = request.user.profile.learning_word.split(",")
     if request.method == 'POST':
         form = LearningWords(request.POST)
-        if form.is_valid() and form.cleaned_data.get('word') == eng:
+        if form.is_valid() and form.cleaned_data.get('word') == to_:
             messages.success(request, 'Отлично, теперь Вы знаете на 1 слово больше!')
             request.user.profile.learning_word = ""
             request.user.profile.save()
@@ -46,7 +58,7 @@ def learn(request):
             return redirect('learn')
     else:
         form = LearningWords()
-    return render(request, 'home/learnPage.html', {'ru': ru, 'eng': eng, 'form': form})
+    return render(request, 'home/learnPage.html', {'from_': from_, 'to_': to_, 'mode': request.user.profile.mode, 'form': form})
 
 
 @login_required
@@ -60,18 +72,22 @@ def repeat(request):
         request.user.profile.save()
     learned_word = LearnedWords.objects.filter(pk=int(request.user.profile.repeating_word)).first()
     curr_word = learned_word.word
-    message = curr_word.rus
+    if not request.user.profile.mode:
+        from_, to_ = curr_word.rus, curr_word.eng
+    else:
+        from_, to_ = curr_word.eng, curr_word.rus
+    message = from_
     if request.method == 'POST':
         form = LearningWords(request.POST)
         if form.is_valid():
-            if form.cleaned_data.get('word') == curr_word.eng:
+            if form.cleaned_data.get('word') == to_:
                 request.user.profile.learning_level *= 0.9
                 learned_word.repeating += 1
                 messages.success(request, "Верный ответ!")
             else:
                 request.user.profile.learning_level /= 0.9
                 learned_word.repeating = 1
-                messages.error(request, f'Вы ошиблись! Правильный ответ: {curr_word}.')
+                messages.error(request, f'Вы ошиблись! Правильный ответ: {to_}.')
             request.user.profile.repeating_word = ""
             learned_word.last_repeating = datetime.now(timezone.utc)
             learned_word.save()
@@ -80,7 +96,7 @@ def repeat(request):
             return redirect('repeat')
     else:
         form = LearningWords()
-    return render(request, 'home/repeatPage.html', {'message': message, 'form': form})
+    return render(request, 'home/repeatPage.html', {'message': message, 'mode': request.user.profile.mode, 'form': form})
 
 
 def compete(request):

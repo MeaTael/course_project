@@ -21,7 +21,13 @@
                         <h1>Текущее слово:&nbsp</h1>
                         <h1 class="word">{{ message }}</h1>
                     </div>
-                    <h1 class="task">Введите его на английском:</h1>
+                    <h1 class="task">Введите его на
+                        {% if mode == 0 %}
+                            английском:
+                        {% else %}
+                            русском:
+                        {% endif %}
+                    </h1>
                 </div>
                 <fieldset class="form-fields">
                     {{ form|crispy }}
@@ -33,6 +39,11 @@
                 </fieldset>
                 <div class="form-buttons">
                     <button class="button" type="submit">Ответить</button>
+                </div>
+            </form>
+            <form action="{% url "switch" %}">
+                <div class="form-buttons">
+                    <button class="long-button" type="submit">Поменять режим перевода</button>
                 </div>
             </form>
         </div>

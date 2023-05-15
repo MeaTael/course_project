@@ -12,6 +12,8 @@ class Profile(models.Model):
     rating = models.DecimalField(default=0, max_digits=15, decimal_places=6)
     learning_word = models.CharField(default="")
     repeating_word = models.CharField(default="")
+    mode = models.IntegerField(default=0)
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
