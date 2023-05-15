@@ -93,3 +93,18 @@ p.mail {
     transform: scale(1.05);
     transition: .6s ease;
 }
+
+.content-wrapper {
+    height: auto;
+    width: auto;
+    background: #2b003d;
+    border-radius: 20px;
+    padding: 15px;
+    border: 5px solid orangered;
+}
+
+.content-wrapper h2 {
+    color: #f2f2f2;
+    font-size: 25px;
+    margin-bottom: 15px;
+}

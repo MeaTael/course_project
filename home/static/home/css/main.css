@@ -1,0 +1,26 @@
+.content-section {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    height: 95%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.content-wrapper {
+    height: auto;
+    width: auto;
+    background: #2b003d;
+    border-radius: 20px;
+    padding: 15px;
+    border: 5px solid orangered;
+}
+
+.content-wrapper h2 {
+    color: #f2f2f2;
+    font-size: 25px;
+}

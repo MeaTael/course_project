@@ -1,11 +1,13 @@
 {% extends "home/layout.html" %}
+{% load static %}
 {% block content %}
-    <h2>Вы вышли из своей учетной записи</h2>
     <div class="content-section">
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                <a href="{% url 'login' %}">Войти</a>
-            </small>
+        <link rel="stylesheet" href="{% static "users/css/profile.css" %}">
+        <div class="content-wrapper">
+            <h2>Вы вышли из своей учетной записи</h2>
+            <form class="form-buttons" action="{% url 'login' %}">
+                <button class="button">Войти</button>
+            </form>
         </div>
     </div>
 {% endblock content %}

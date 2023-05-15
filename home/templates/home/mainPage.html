@@ -1,4 +1,5 @@
 {% extends 'home/layout.html'%}
+{% load static %}
 
 {% block title %}
     Главная страница
@@ -9,5 +10,10 @@
 {% endblock %}
 
 {% block content %}
-    <p>Главная страница</p>
+    <div class="content-section">
+    <link rel="stylesheet" href="{% static "home/css/main.css" %}">
+        <div class="content-wrapper">
+            <h2>Главная Страница</h2>
+        </div>
+    </div>
 {% endblock %}
