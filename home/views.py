@@ -12,6 +12,19 @@ from django.contrib import messages
 from users.management.commands import update_stat
 from users.models import Profile, LearnedWords
 
+from Levenshtein import distance
+
+
+def get_min_coef(wrong_word, words):
+    possible_word = max(words, key=lambda x: len(x))
+    min_dist = len(possible_word)
+    for word in words:
+        dist = distance(wrong_word, word)
+        if dist < min_dist:
+            min_dist = dist
+            possible_word = word
+    return min_dist/len(possible_word), possible_word
+
 
 def home(request):
     return render(request, 'home/mainPage.html')
@@ -95,13 +108,17 @@ def repeat(request):
                     to_.pop(word)
                     messages.success(request, "Верный ответ!")
                 else:
-                    request.user.profile.learning_level /= 0.9
-                learned_word.last_repeating = datetime.now(timezone.utc)
+                    coef, possible_word = get_min_coef(word, to_.keys())
+                    request.user.profile.learning_level /= 1 - (0.1 * coef)
+                    learned_word = LearnedWords.objects.get(pk=to_[possible_word])
+                    if coef <= 0.5:
+                        learned_word.repeating = learned_word.repeating // 2
+                    else:
+                        learned_word.repeating = 1
+                    to_.pop(possible_word)
+                    messages.error(request, f'Вы ошиблись! Правильный ответ: {possible_word}.')
+                    learned_word.last_repeating = datetime.now(timezone.utc)
             request.user.profile.repeating_word = ""
-            for word, pk in to_.items():
-                learned_word = LearnedWords.objects.get(pk=pk)
-                learned_word.repeating = 1
-                messages.error(request, f'Вы ошиблись! Правильный ответ: {word}.')
             learned_word.save()
             call_command('update_stat')
             request.user.profile.save()
