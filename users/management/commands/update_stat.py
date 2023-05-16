@@ -15,7 +15,7 @@ class Command(BaseCommand):
             for word in words:
                 timepassed = now - word.last_repeating
                 word.forgetting_coef = 1 - (1 - (1 + word.repeating * profile.learning_level *
-                                        timepassed.total_seconds()/timedelta(hours=1).total_seconds())
+                                        timepassed.total_seconds()/timedelta(days=1).total_seconds())
                                             ** (-1 / word.repeating)) ** word.repeating
                 rating += word.forgetting_coef * 10
                 word.save()
