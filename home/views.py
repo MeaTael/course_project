@@ -35,6 +35,7 @@ def AddWord(user_id, word_id):
     learned_word.user_id = user_id
     learned_word.word_id = word_id
     learned_word.last_repeating = datetime.now(timezone.utc)
+    learned_word.learning_date = datetime.now(timezone.utc).date()
     learned_word.save()
 
 
@@ -49,6 +50,8 @@ def switch(request):
 @login_required
 def learn(request):
     print(request.META.get("HTTP_REFERER").split('/')[-2])
+    if len(LearnedWords.objects.filter(user_id=request.user.id, learning_date=datetime.now(timezone.utc).date())) >= 3:
+        return render(request, 'home/nothingToRepeatPage.html')
     if request.user.profile.learning_word == "":
         words_ids = LearnedWords.objects.filter(user_id=request.user.id).values_list('word_id')
         word_to_learn = EngRusDict.objects.exclude(id__in=words_ids)[0]
@@ -76,7 +79,7 @@ def learn(request):
 
 @login_required
 def repeat(request):
-    learned_words = LearnedWords.objects.filter(user_id=request.user.id).order_by('forgetting_coef')
+    learned_words = LearnedWords.objects.filter(user_id=request.user.id, forgetting_coef__lte=0.7).order_by('forgetting_coef')
     if len(learned_words) == 0:
         return render(request, 'home/nothingToRepeatPage.html')
     if request.user.profile.repeating_word == "":
@@ -86,12 +89,12 @@ def repeat(request):
     learned_word = LearnedWords.objects.filter(pk=int(request.user.profile.repeating_word)).first()
     curr_word = learned_word.word
     if not request.user.profile.mode:
-        learned_words = LearnedWords.objects.filter(user_id=request.user.id, word__rus=curr_word.rus).order_by('forgetting_coef')
+        learned_words = LearnedWords.objects.filter(user_id=request.user.id, word__rus=curr_word.rus, forgetting_coef__lte=0.7).order_by('forgetting_coef')
         from_, to_ = curr_word.rus, dict()
         for word in learned_words:
             to_[word.word.eng] = word.pk
     else:
-        learned_words = LearnedWords.objects.filter(user_id=request.user.id, word__eng=curr_word.eng).order_by(
+        learned_words = LearnedWords.objects.filter(user_id=request.user.id, word__eng=curr_word.eng, forgetting_coef__lte=0.7).order_by(
             'forgetting_coef')
         from_, to_ = curr_word.eng, dict()
         for word in learned_words:

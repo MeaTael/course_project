@@ -34,6 +34,7 @@ class LearnedWords(models.Model):
     word = models.ForeignKey(EngRusDict, on_delete=models.PROTECT)
     forgetting_coef = models.FloatField(default=1.0)
     last_repeating = models.DateTimeField()
+    learning_date = models.DateTimeField()
     repeating = models.IntegerField(default=1.0)
 
     def __str__(self):
