@@ -14,7 +14,6 @@ class Profile(models.Model):
     repeating_word = models.CharField(default="")
     mode = models.IntegerField(default=0)
 
-
     def __str__(self):
         return f'{self.user.username} Profile'
 

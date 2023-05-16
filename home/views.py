@@ -49,9 +49,8 @@ def switch(request):
 
 @login_required
 def learn(request):
-    print(request.META.get("HTTP_REFERER").split('/')[-2])
-    if len(LearnedWords.objects.filter(user_id=request.user.id, learning_date=datetime.now(timezone.utc).date())) >= 3:
-        return render(request, 'home/nothingToRepeatPage.html')
+    if len(LearnedWords.objects.filter(user_id=request.user.id, learning_date=datetime.now(timezone.utc).date())) >= 5:
+        return render(request, 'home/nothingToLearnPage.html')
     if request.user.profile.learning_word == "":
         words_ids = LearnedWords.objects.filter(user_id=request.user.id).values_list('word_id')
         word_to_learn = EngRusDict.objects.exclude(id__in=words_ids)[0]
