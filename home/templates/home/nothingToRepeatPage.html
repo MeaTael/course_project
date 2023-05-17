@@ -16,6 +16,11 @@
         <div class="form-container-repeat">
             <h2 class="repeat-fail-header">Вам пока нечего повторять,<br>вы либо все помните, либо ничего не знаете.</h2>
             <form class="form-buttons" action="{% url 'learn' %}">
+                {% if messages %}
+                        {% for message in messages %}
+                            <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
                 <button class="button-learn">Начать учить слова</button>
             </form>
         </div>
