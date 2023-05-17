@@ -40,15 +40,15 @@ class UserRegisterForm(UserCreationForm):
         for field in self.fields:
             self.fields[field].label = False
 
-    email = forms.CharField(widget=forms.EmailInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Email',
-        'style': 'border: 3px solid orangered;'
-                 'border-radius: 10px;'
-                 'font-size: 14px;'
-                 'line-height: 16px;'
-                 'padding-left: 10px;'
-    }))
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={
+            'style': 'border: 3px solid orangered;'
+                     'border-radius: 10px;'
+                     'font-size: 14px;'
+                     'line-height: 16px;'
+                     'padding-left: 10px;'
+        }
+    ), label=False)
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
@@ -72,11 +72,14 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username', 'email']
 
         widgets = {
             "username": TextInput(attrs={
-                "placeholder": "Логин"
+                "placeholder": "Логин",
+            }),
+            "email": forms.EmailInput(attrs={
+                "placeholder": "Email"
             })
         }
 
