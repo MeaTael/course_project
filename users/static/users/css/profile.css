@@ -108,3 +108,10 @@ p.mail {
     font-size: 25px;
     margin-bottom: 15px;
 }
+
+.success {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: lawngreen;
+}

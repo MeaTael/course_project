@@ -1,16 +1,3 @@
-.content-section {
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    height: 95%;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    overflow: auto;
-}
-
 h1 {
     white-space: nowrap;
 }
@@ -122,4 +109,12 @@ h1 {
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.message .success {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+    color: lawngreen;
 }

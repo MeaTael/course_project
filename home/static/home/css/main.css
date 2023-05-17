@@ -1,16 +1,3 @@
-.content-section {
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    height: 95%;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    overflow: auto;
-}
-
 .content-wrapper {
     height: auto;
     width: auto;

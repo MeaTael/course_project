@@ -5,7 +5,7 @@ body {
 aside {
     float: left;
     background: #2b003d;
-    width: 10%;
+    width: 12%;
     height: 100vh;
     color: #f2f2f2;
     text-align: center;
@@ -23,7 +23,19 @@ aside {
     margin-bottom: 10px;
 }
 
-
+.content-section {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    height: 95%;
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
 
 .menu a {
     display: inline-block;
@@ -62,13 +74,15 @@ aside {
     transform: scale(1.05);
 }
 
-.topnav a:active, .menu a:active {
+.menu a:active {
     background-color: bisque;
+    border: 3px solid orangered;
     color: #2b003d;
 }
 
 .menu a.active {
     background-color: bisque;
+    border: 3px solid orangered;
     color: #2b003d;
 }
 

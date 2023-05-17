@@ -1,17 +1,3 @@
-.content-section {
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    height: 95%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    overflow: auto;
-}
-
 .table-container {
     width: auto;
     background: #2b003d;

@@ -7,25 +7,24 @@
 {% endblock loginclass %}
 
 {% block content %}
-    <div class="content-section">
+    <div class="form-container-login">
         <link rel=stylesheet href="{% static 'home/css/auth.css' %}">
-        <div class="form-container-login">
-            <form method="POST">
-                {% csrf_token %}
-                <h1 class="form-title">
-                    Авторизация
-                </h1>
-                <fieldset class="form-fields">
-                    {{ form|crispy }}
-                </fieldset>
-                <div class="form-buttons">
-                    <button class="button" type="submit">Войти</button>
-                </div>
-            </form>
-            <form class="form-buttons" action="{% url 'signup' %}">
-                <div class="divider">Уже зарегистрированы?</div>
-                <button class="button">Зарегистрироваться</button>
-            </form>
-        </div>
+        {% include "home/messages.html" %}
+        <form method="POST">
+            {% csrf_token %}
+            <h1 class="form-title">
+                Авторизация
+            </h1>
+            <fieldset class="form-fields">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-buttons">
+                <button class="button" type="submit">Войти</button>
+            </div>
+        </form>
+        <form class="form-buttons" action="{% url 'signup' %}">
+            <div class="divider">Еще не зарегистрированы?</div>
+            <button class="button">Зарегистрироваться</button>
+        </form>
     </div>
 {% endblock content %}

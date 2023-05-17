@@ -10,29 +10,27 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content-section">
+    <div class="table-container">
         <link rel="stylesheet" href="{% static 'home/css/standings.css' %}">
-        <div class="table-container">
-            <h1>Standings</h1>
-            <table class="table">
-              <thead>
-            <tr>
-                <th class="col" scope="col">Position</th>
-                <th class="col" scope="col">Username</th>
-                <th class="col" scope="col">&nbspRating&nbsp</th>
-            </tr>
-          </thead>
-            <tbody>
-                {% for message in messages_list %}
-                    <tr>
-                    <td class="pos">{{ message.i }}</td>
-                    <td class="col-content">{{ message.username }}</td>
-                    <td class="col-content">{{ message.rating }}</td>
-                    </tr>
-            {% endfor %}
-            </tbody>
-            </table>
-            <p>Рейтинг обновляется каждые 20 минут</p>
-        </div>
+        <h1>Standings</h1>
+        <table class="table">
+          <thead>
+        <tr>
+            <th class="col" scope="col">Position</th>
+            <th class="col" scope="col">Username</th>
+            <th class="col" scope="col">&nbspRating&nbsp</th>
+        </tr>
+      </thead>
+        <tbody>
+            {% for message in messages_list %}
+                <tr>
+                <td class="pos">{{ message.i }}</td>
+                <td class="col-content">{{ message.username }}</td>
+                <td class="col-content">{{ message.rating }}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <p>Рейтинг обновляется каждые 20 минут</p>
     </div>
 {% endblock %}

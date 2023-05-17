@@ -12,19 +12,6 @@ input:focus {
     outline: none;
 }
 
-.content-section {
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    height: 95%;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    overflow: auto;
-}
-
 .form-title {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -76,4 +63,11 @@ input:focus {
     margin-bottom: 5px;
     color: #f2f2f2;
     text-align: center;
+}
+
+.success {
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+    color: lawngreen;
 }
