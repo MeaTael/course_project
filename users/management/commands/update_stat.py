@@ -11,7 +11,7 @@ class Command(BaseCommand):
         now = datetime.now(timezone.utc)
         for profile in profiles:
             rating = 0
-            words = LearnedWords.objects.all()
+            words = LearnedWords.objects.filter(user__profile__pk=profile.pk)
             for word in words:
                 timepassed = now - word.last_repeating
                 word.forgetting_coef = 1 - (1 - (1 + word.repeating * profile.learning_level *
