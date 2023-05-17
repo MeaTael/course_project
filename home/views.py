@@ -62,7 +62,7 @@ def learn(request):
         word_id, to_, from_ = request.user.profile.learning_word.split(",")
     if request.method == 'POST':
         form = LearningWords(request.POST)
-        if form.is_valid() and form.cleaned_data.get('word') == to_:
+        if form.is_valid() and form.cleaned_data.get('word').strip() == to_:
             messages.success(request, 'Отлично, теперь Вы знаете на 1 слово больше!')
             request.user.profile.learning_word = ""
             request.user.profile.save()
@@ -103,6 +103,7 @@ def repeat(request):
         form = LearningWords(request.POST)
         if form.is_valid():
             for word in form.cleaned_data.get('word').split(","):
+                word.strip()
                 if word in to_.keys():
                     learned_word = LearnedWords.objects.get(pk=to_[word])
                     request.user.profile.learning_level *= 0.9
