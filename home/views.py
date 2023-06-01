@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
+import random
+
 from django.core.management import call_command
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -64,7 +66,7 @@ def learn(request):
         return render(request, 'home/nothingToLearnPage.html')
     if request.user.profile.learning_word == "":
         words_ids = LearnedWords.objects.filter(user_id=request.user.id).values_list('word_id')
-        word_to_learn = EngRusDict.objects.exclude(id__in=words_ids)[0]
+        word_to_learn = random.choice(EngRusDict.objects.exclude(id__in=words_ids))
         request.user.profile.learning_word = str(word_to_learn.id) + "," + word_to_learn.rus + "," + word_to_learn.eng
         request.user.profile.save()
     if not request.user.profile.mode:
