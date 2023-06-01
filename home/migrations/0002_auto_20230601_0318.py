@@ -10,11 +10,10 @@ from djangoProject3.settings import BASE_DIR
 def add_words(apps, schema_editor):
     rus_eng_dict = apps.get_model('home', 'EngRusDict')
 
-    words = open(os.path.join(BASE_DIR, '5000_words.txt'))
+    words = open(os.path.join(BASE_DIR, 'res.txt'))
     for word in words.readlines():
-        eng, rus = word.split(";")
-        for wordru in rus.strip("\"")[:-2].split(","):
-            rus_eng_dict.objects.create(rus=wordru.strip(), eng=eng.strip("\""))
+        eng, rus, transcript = word.split(",")
+        rus_eng_dict.objects.create(rus=rus.strip(), eng=eng, transcript=transcript)
 
 
 class Migration(migrations.Migration):

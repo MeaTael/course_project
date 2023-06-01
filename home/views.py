@@ -13,6 +13,9 @@ from users.management.commands import update_stat
 from users.models import Profile, LearnedWords
 
 from Levenshtein import distance
+from hunspell import Hunspell
+h_ru = Hunspell('/usr/share/hunspell/ru_RU')
+h_en = Hunspell('/usr/share/hunspell/en_US')
 
 
 def get_min_coef(wrong_word, words):
@@ -24,6 +27,14 @@ def get_min_coef(wrong_word, words):
             min_dist = dist
             possible_word = word
     return min_dist/len(possible_word), possible_word
+
+def get_words(word):
+    if h_ru.spell(word):
+        return h_ru.suggest(word)
+    if h_en.spell(word):
+        return h_en.suggest(word)
+    return word
+
 
 
 def home(request):
@@ -104,18 +115,26 @@ def repeat(request):
         if form.is_valid():
             for word in form.cleaned_data.get('word').split(","):
                 word.strip()
-                if word in to_.keys():
-                    learned_word = LearnedWords.objects.get(pk=to_[word])
+                base_word = word
+                for w in get_words(word):
+                    if w is not None:
+                        for key in to_.keys():
+                            if w.lower() == key.lower():
+                                base_word = key
+                                break
+                if base_word.lower() in map(str.lower, to_.keys()):
+                    learned_word = LearnedWords.objects.get(pk=to_[base_word])
                     request.user.profile.learning_level *= 0.9
                     learned_word.repeating += 1
-                    to_.pop(word)
+                    to_.pop(base_word)
+                    learned_word.last_repeating = datetime.now(timezone.utc)
                     messages.success(request, "Верный ответ!")
                 else:
                     coef, possible_word = get_min_coef(word, to_.keys())
                     request.user.profile.learning_level /= 1 - (0.1 * coef)
                     learned_word = LearnedWords.objects.get(pk=to_[possible_word])
                     if coef <= 0.5:
-                        learned_word.repeating = learned_word.repeating // 2
+                        learned_word.repeating = max(learned_word.repeating // 2, 1)
                     else:
                         learned_word.repeating = 1
                     to_.pop(possible_word)
