@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-01 08:17+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: home/templates/home/competePage.html:5
+#: home/templates/home/competePage.html:21 home/templates/home/layout.html:24
+msgid "Рейтинг"
+msgstr "Rating"
+
+#: home/templates/home/competePage.html:15
+msgid "Положение участников"
+msgstr "Standings"
+
+#: home/templates/home/competePage.html:19
+msgid "Место"
+msgstr "Position"
+
+#: home/templates/home/competePage.html:20
+msgid "Никнейм"
+msgstr "Username"
+
+#: home/templates/home/competePage.html:34
+msgid "Рейтинг обновляется каждые 20 минут"
+msgstr "Leaderboard is updated once in 20 minutes"
+
+#: home/templates/home/layout.html:17
+msgid "Меню"
+msgstr "Menu"
+
+#: home/templates/home/layout.html:19
+msgid "Главная"
+msgstr "Home"
+
+#: home/templates/home/layout.html:21
+msgid "Изучение слов"
+msgstr "Learn words"
+
+#: home/templates/home/layout.html:22
+msgid "Повторение слов"
+msgstr "Repeat words"
+
+#: home/templates/home/layout.html:30
+msgid "Профиль"
+msgstr "Profile"
+
+#: home/templates/home/layout.html:31
+msgid "Выйти"
+msgstr "Log out"
+
+#: home/templates/home/layout.html:33 users/templates/users/login.html:22
+#: users/templates/users/logout.html:8 users/templates/users/register.html:27
+msgid "Войти"
+msgstr "Log in"
+
+#: home/templates/home/layout.html:34 users/templates/users/register.html:16
+msgid "Регистрация"
+msgstr "Sign up"
+
+#: home/templates/home/learnPage.html:20 home/templates/home/repeatPage.html:21
+msgid "Текущее слово"
+msgstr "Current word"
+
+#: home/templates/home/learnPage.html:24
+msgid "Его перевод"
+msgstr "Its translation"
+
+#: home/templates/home/learnPage.html:29
+msgid "английском"
+msgstr "english"
+
+#: home/templates/home/learnPage.html:31
+msgid "русском"
+msgstr "russian"
+
+#: home/templates/home/learnPage.html:40 home/templates/home/repeatPage.html:37
+msgid "Ответить"
+msgstr "Submit"
+
+#: home/templates/home/mainPage.html:15
+msgid "Главная Страница"
+msgstr "Home Page"
+
+#: home/templates/home/nothingToLearnPage.html:19
+msgid "На данный момент вы достигли предела изучаемых слов."
+msgstr "You've reached limit of words for today."
+
+#: home/templates/home/nothingToLearnPage.html:21
+msgid "Обязательно возвращайтесь попозже!"
+msgstr "Come back and learn anoter words later!"
+
+#: home/templates/home/nothingToLearnPage.html:23
+msgid "Возможно, вам есть что повторять."
+msgstr "Probably you've got some words to repeat."
+
+#: home/templates/home/nothingToLearnPage.html:26
+msgid "К повторению слов"
+msgstr "Repeat words"
+
+#: home/templates/home/nothingToRepeatPage.html:16
+msgid "Вам пока нечего повторять,"
+msgstr "You've got nothing to repeat."
+
+#: home/templates/home/nothingToRepeatPage.html:18
+msgid "вы либо все помните, либо ничего не знаете."
+msgstr "You remember everything or haven't start learning yet"
+
+#: home/templates/home/nothingToRepeatPage.html:21
+msgid "Начать учить слова"
+msgstr "Learn words"
+
+#: home/templates/home/repeatPage.html:24
+msgid "Введите его на"
+msgstr "Input this word in"
+
+#: home/templates/home/repeatPage.html:26
+msgid "английском:"
+msgstr "english"
+
+#: home/templates/home/repeatPage.html:28
+msgid "русском:"
+msgstr "russian"
+
+#: home/templates/home/repeatPage.html:42
+msgid "Поменять режим перевода"
+msgstr "Switch translation mode"
+
+#: users/templates/users/login.html:16
+msgid "Авторизация"
+msgstr "Authorize"
+
+#: users/templates/users/login.html:26
+msgid "Еще не зарегистрированы?"
+msgstr "Don't have an account?"
+
+#: users/templates/users/login.html:27 users/templates/users/register.html:22
+msgid "Зарегистрироваться"
+msgstr "Sign up"
+
+#: users/templates/users/logout.html:6
+msgid "Вы вышли из своей учетной записи"
+msgstr "You logged out."
+
+#: users/templates/users/profile.html:7
+msgid "Ваш профиль"
+msgstr "Your profile"
+
+#: users/templates/users/profile.html:18
+msgid "Редактировать профиль"
+msgstr "Edit profile"
+
+#: users/templates/users/profile.html:24
+msgid "Изменить аватар"
+msgstr "Edit avatar"
+
+#: users/templates/users/profile.html:28
+msgid "Редактировать"
+msgstr "Edit"
+
+#: users/templates/users/register.html:26
+msgid "Уже зарегистрированы?"
+msgstr "Already have an account?"
