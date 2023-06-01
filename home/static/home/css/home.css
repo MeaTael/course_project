@@ -58,7 +58,9 @@ aside {
     border-bottom: 5px solid orangered;
 }
 
-.topnav a {
+.topnav a, .lang {
+    background: darkorange;
+    border: none;
     float: right;
     color: #2b003d;
     text-align: center;
@@ -68,7 +70,7 @@ aside {
     transition: all .6s ease;
 }
 
-.topnav a:hover, .topnav a.active {
+.topnav a:hover, .topnav a.active, .lang:hover {
     background-color: #2b003d;
     color: #f2f2f2;
     transform: scale(1.05);
@@ -90,4 +92,8 @@ aside {
     background-color: darkorange;
     color: #2b003d;
     transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
 }

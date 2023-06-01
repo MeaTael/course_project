@@ -1,11 +1,11 @@
 {% extends "home/layout.html" %}
-{% load static %}
+{% load static i18n %}
 {% block content %}
     <div class="content-wrapper">
         <link rel="stylesheet" href="{% static "users/css/profile.css" %}">
-        <h2>Вы вышли из своей учетной записи</h2>
+        <h2>{% trans "Вы вышли из своей учетной записи" %}</h2>
         <form class="form-buttons" action="{% url 'login' %}">
-            <button class="button">Войти</button>
+            <button class="button">{% trans "Войти" %}</button>
         </form>
     </div>
 {% endblock content %}

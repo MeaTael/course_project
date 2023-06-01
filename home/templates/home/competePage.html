@@ -1,8 +1,8 @@
 {% extends 'home/layout.html'%}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Рейтинг
+    {% trans "Рейтинг" %}
 {% endblock %}
 
 {% block competeclass %}
@@ -12,13 +12,13 @@
 {% block content %}
     <div class="table-container">
         <link rel="stylesheet" href="{% static 'home/css/standings.css' %}">
-        <h1>Standings</h1>
+        <h1>{% trans "Положение участников" %}</h1>
         <table class="table">
           <thead>
         <tr>
-            <th class="col" scope="col">Position</th>
-            <th class="col" scope="col">Username</th>
-            <th class="col" scope="col">&nbspRating&nbsp</th>
+            <th class="col" scope="col">{% trans "Место" %}</th>
+            <th class="col" scope="col">{% trans "Никнейм" %}</th>
+            <th class="col" scope="col">&nbsp{% trans "Рейтинг" %}&nbsp</th>
         </tr>
       </thead>
         <tbody>
@@ -31,6 +31,6 @@
             {% endfor %}
         </tbody>
         </table>
-        <p>Рейтинг обновляется каждые 20 минут</p>
+        <p>{% trans "Рейтинг обновляется каждые 20 минут" %}</p>
     </div>
 {% endblock %}

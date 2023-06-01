@@ -1,5 +1,5 @@
 {% extends "home/layout.html" %}
-{% load static %}
+{% load static i18n %}
 {% load crispy_forms_tags %}
 
 {% block signupclass %}
@@ -13,18 +13,18 @@
         <form method="POST">
             {% csrf_token %}
             <h1 class="form-title">
-                Регистрация
+                {% trans "Регистрация" %}
             </h1>
             <fieldset class="form-fields">
                 {{ form|crispy }}
             </fieldset>
             <div class="form-buttons">
-                <button class="button" type="submit">Зарегистрироваться</button>
+                <button class="button" type="submit">{% trans "Зарегистрироваться" %}</button>
             </div>
         </form>
         <form class="form-buttons" action="{% url 'login' %}">
-            <div class="divider">Уже зарегистрированы?</div>
-            <button class="button">Войти</button>
+            <div class="divider">{% trans "Уже зарегистрированы?" %}</div>
+            <button class="button">{% trans "Войти" %}</button>
         </form>
     </div>
 {% endblock content %}

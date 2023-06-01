@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 
 <!doctype html>
 <html lang="en">
@@ -14,27 +14,44 @@
 <body>
 
     <aside>
-        <div class="header">Меню</div>
+        <div class="header">{% trans "Меню" %}</div>
         <div class="menu">
-            <a href="{% url 'home' %}" class="{% block homeclass %}{% endblock %}">Главная</a>
+            <a href="{% url 'home' %}" class="{% block homeclass %}{% endblock %}">{% trans "Главная" %}</a>
             {% if user.is_authenticated %}
-            <a href="{% url 'learn' %}" class="{% block learnclass %}{% endblock %}">Изучение слов</a>
-            <a href="{% url 'repeat' %}" class="{% block repeatclass %}{% endblock %}">Повторение слов</a>
+            <a href="{% url 'learn' %}" class="{% block learnclass %}{% endblock %}">{% trans "Изучение слов" %}</a>
+            <a href="{% url 'repeat' %}" class="{% block repeatclass %}{% endblock %}">{% trans "Повторение слов" %}</a>
             {% endif %}
-            <a href="{% url 'compete' %}" class="{% block competeclass %}{% endblock %}">Рейтинг</a>
+            <a href="{% url 'compete' %}" class="{% block competeclass %}{% endblock %}">{% trans "Рейтинг" %}</a>
         </div>
     </aside>
 
     <div class="topnav">
         {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">{% trans "Профиль" %}</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">{% trans "Выйти" %}</a>
         {% else %}
-            <a href="{% url 'login' %}" class="{% block loginclass %}{% endblock %}">Log in</a>
-            <a href="{% url 'signup' %}" class="{% block signupclass %}{% endblock %}">Sign up</a>
+            <a href="{% url 'login' %}" class="{% block loginclass %}{% endblock %}">{% trans "Войти" %}</a>
+            <a href="{% url 'signup' %}" class="{% block signupclass %}{% endblock %}">{% trans "Регистрация" %}</a>
         {% endif %}
-
-    </div>
+        <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <select class="hidden" name="language">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <option value="{{ language.code }}"
+                        {% if language.code != LANGUAGE_CODE %}
+                            selected
+                        {% endif %}>
+                        {{ language.name_local }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% get_language_info for LANGUAGE_CODE as language %}
+            <button class="lang" type="submit">{{ language.name_local }}</button>
+        </form>
     <div class="content-section">
         {% block content %}
 

@@ -1,5 +1,5 @@
 {% extends 'home/layout.html'%}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
     Главная страница
@@ -12,6 +12,6 @@
 {% block content %}
     <div class="content-wrapper">
         <link rel="stylesheet" href="{% static "home/css/main.css" %}">
-        <h2>Главная Страница</h2>
+        <h2>{% trans "Главная Страница" %}</h2>
     </div>
 {% endblock %}

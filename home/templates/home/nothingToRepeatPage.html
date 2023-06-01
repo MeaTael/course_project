@@ -1,9 +1,5 @@
 {% extends 'home/layout.html' %}
-{% load static %}
-
-{% block title %}
-    Необходимо выучить слова!
-{% endblock %}
+{% load static i18n %}
 
 {% block repeatclass %}
     active
@@ -16,9 +12,13 @@
         <div class="message">
             {% include "home/messages.html" %}
         </div>
-        <h2 class="repeat-fail-header">Вам пока нечего повторять,<br>вы либо все помните, либо ничего не знаете.</h2>
+        <h2 class="repeat-fail-header">
+            {% trans "Вам пока нечего повторять," %}
+            <br>
+            {% trans "вы либо все помните, либо ничего не знаете." %}
+        </h2>
         <form class="form-buttons" action="{% url 'learn' %}">
-            <button class="button-learn">Начать учить слова</button>
+            <button class="button-learn">{% trans "Начать учить слова" %}</button>
         </form>
     </div>
 

@@ -1,5 +1,5 @@
 {% extends 'home/layout.html'%}
-{% load static %}
+{% load static i18n %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -17,18 +17,18 @@
             {% csrf_token %}
             <div class="form-title">
                 <div class="form-title-head">
-                    <h1>Текущее слово:&nbsp</h1>
+                    <h1>{% trans "Текущее слово" %}:&nbsp</h1>
                     <h1 class="word">{{ from_ }}</h1>
                 </div>
                 <div class="form-title-head">
-                    <h1>Его перевод:&nbsp</h1>
+                    <h1>{% trans "Его перевод" %}:&nbsp</h1>
                     <h1 class="word">{{ to_ }}</h1>
                 </div>
-                <h1 class="task">Введите его на
+                <h1 class="task">{% trans "Введите его на" %}
                     {% if mode == 0 %}
-                        английском:
+                        {% trans "английском" %}:
                     {% else %}
-                        русском:
+                        {% trans "русском" %}:
                     {% endif %}
                 </h1>
             </div>
@@ -37,12 +37,12 @@
                 {% include "home/messages.html" %}
             </fieldset>
             <div class="form-buttons">
-                <button class="button" type="submit">Ответить</button>
+                <button class="button" type="submit">{% trans "Ответить" %}</button>
             </div>
         </form>
         <form action="{% url "switch" %}">
             <div class="form-buttons">
-                <button class="long-button" type="submit">Поменять режим перевода</button>
+                <button class="long-button" type="submit">{% trans "Поменять режим перевода" %}</button>
             </div>
         </form>
     </div>
